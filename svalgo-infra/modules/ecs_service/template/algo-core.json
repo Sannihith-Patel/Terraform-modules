@@ -1,0 +1,41 @@
+[{
+    "name": "algo-core",
+    "image": "${aws_account}.dkr.ecr.${aws_region}.amazonaws.com/${ecr_repo}:${image_tag}",
+    "cpu": 0,
+    "portMappings": [
+        {
+            "name": "algo-core-443-tcp",
+            "containerPort": 443,
+            "hostPort": 443,
+            "protocol": "tcp",
+            "appProtocol": "http"
+        },
+        {
+            "name": "algo-core-8080-tcp",
+            "containerPort": 8080,
+            "hostPort": 8080,
+            "protocol": "tcp",
+            "appProtocol": "http"
+        }
+    ],
+    "essential": true,
+    "environment": [
+        {"name": "ALGO_RUN_ENV", "value": "${environment}"}
+    ],
+    "environmentFiles": [],
+    "mountPoints": [],
+    "volumesFrom": [],
+    "ulimits": [],
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+            "awslogs-group": "${loggroup}",
+            "awslogs-create-group": "true",
+            "awslogs-region": "${aws_region}",
+            "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+    },
+    "systemControls": []
+}
+]
